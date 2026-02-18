@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Creature Game - Open World</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="uiPanel">
+            <div id="playerStats">
+                <p>Position: <span id="posX">0</span>, <span id="posY">0</span></p>
+                <p>Creatures Caught: <span id="creatureCount">0</span></p>
+                <p>Health: <span id="healthBar">100%</span></p>
+            </div>
+            <div id="mobileControls">
+                <button id="btnUp" class="controlBtn">▲</button>
+                <div id="horizontalControls">
+                    <button id="btnLeft" class="controlBtn">◄</button>
+                    <button id="btnCenter" class="controlBtn">O</button>
+                    <button id="btnRight" class="controlBtn">►</button>
+                </div>
+                <button id="btnDown" class="controlBtn">▼</button>
+                <button id="btnInteract" class="actionBtn">Interact [E]</button>
+                <button id="btnCatch" class="actionBtn">Catch [Space]</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
