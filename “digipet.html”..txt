@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DigiPet - Agumon Adventure</title>
+<style>
+  body { font-family: Arial; text-align: center; background: #0a1f44; color: #fff; }
+  #screen { width: 90%; max-width: 400px; margin: 20px auto; padding: 20px; background: #112a5e; border-radius: 15px; box-shadow: 0 0 20px cyan; }
+  button { margin: 8px; padding: 12px 20px; background: #00ff88; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+  button:hover { background: #00cc66; }
+  #status { font-size: 18px; margin: 15px 0; }
+  .sprite { width: 120px; height: 120px; image-rendering: pixelated; margin: 10px; }
+</style>
+</head>
+<body>
+<div id="screen">
+  <h2>Agumon DigiPet</h2>
+  <img id="digimon" class="sprite" src="https://www.pngkey.com/png/detail/114-1146777_pixel-art-agumon-pixel-art.png" alt="Agumon">
+  <p id="status">Hunger: 50 | Happiness: 50 | Level: Rookie</p>
+  <button onclick="feed()">Feed (Pepper)</button>
+  <button onclick="play()">Play (Tag)</button>
+  <button onclick="train()">Train (Battle)</button>
+  <button onclick="fight()">Fight Wild Digimon!</button>
+  <p id="message"></p>
+</div>
+
+<script>
+let hunger = 50, happy = 50, level = 1;
+let name = "Agumon";
+let evolved = false;
+
+function update() {
+  document.getElementById('status').innerText = `Hunger: ${hunger} | Happiness: ${happy} | Level: ${level}${evolved ? " (Greymon!)" : ""}`;
+  if (hunger > 80 || happy < 20) {
+    document.getElementById('message').innerText = `${name} is sad... might run away!`;
+  } else {
+    document.getElementById('message').innerText = "";
+  }
+  // Simple evolve
+  if (happy > 90 && level === 1) {
+    level = 2;
+    evolved = true;
+    document.getElementById('message').innerText = "Agumon digivolved to Greymon!";
+    // Swap sprite if you want (find Greymon pixel art online)
+  }
+}
+
+function feed() {
+  hunger = Math.max(0, hunger - 30);
+  happy += 10;
+  document.getElementById('message').innerText = "Yum! Pepper time!";
+  update();
+}
+
+function play() {
+  happy += 20;
+  hunger += 15;
+  document.getElementById('message').innerText = "Woo! Tag—you're it!";
+  update();
+}
+
+function train() {
+  happy -= 10;
+  hunger += 10;
+  level += 0.5;
+  document.getElementById('message').innerText = "Training hard... stronger now!";
+  update();
+}
+
+function fight() {
+  if (hunger > 70 || happy < 30) {
+    document.getElementById('message').innerText = "Too weak! Agumon flees...";
+    return;
+  }
+  let win = Math.random() > 0.4; // 60% chance
+  if (win) {
+    document.getElementById('message').innerText = "Mega Flame! You win—+20 happy!";
+    happy += 20;
+  } else {
+    document.getElementById('message').innerText = "Ouch! Lost—hunger up!";
+    hunger += 30;
+  }
+  update();
+}
+
+// Auto-decrease every 10s (like real Tamagotchi)
+setInterval(() => {
+  hunger += 5;
+  happy -= 3;
+  update();
+}, 10000);
+
+update(); // Start
+</script>
+</body>
+</html>
